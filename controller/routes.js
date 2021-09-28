@@ -46,7 +46,7 @@ router.post('/signup', (req, res) => {
         // validate email and username and password 
         // skipping validation
         // check if a user exists
-        user.findOne({ $or: [{ email: email }, { username: username }] }, function (err, data) {
+        user.findOne({ $or: [{ email: email }, { username: username }] }, function(err, data) {
             if (err) throw err;
             if (data) {
                 res.render("signup", { err: "User Exists, Try Logging In !", csrfToken: req.csrfToken() });
@@ -88,12 +88,12 @@ router.post('/login', (req, res, next) => {
 
 router.get('/logout', (req, res) => {
     req.logout();
-    req.session.destroy(function (err) {
+    req.session.destroy(function(err) {
         res.redirect('/');
     });
 });
 
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email',] }));
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email', ] }));
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
     res.redirect('/profile');
@@ -101,7 +101,7 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
 
 router.get('/profile', checkAuth, (req, res) => {
     // adding a new parameter for checking verification
-    res.render('profile', { username: req.user.username, verified : req.user.isVerified });
+    res.render('profile', { username: req.user.username, verified: req.user.isVerified });
 
 });
 
